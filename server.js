@@ -31,8 +31,19 @@ http
         res.end(); //end the response
       });
     } else if (req.url === "/api") {
+      if (req.method === "POST") {
+        let body = [];
+        req
+          .on("data", chunk => {
+            body.push(chunk);
+          })
+          .on("end", () => {
+            body = Buffer.concat(body).toString();
+
+            console.log(JSON.parse(body));
+          });
+      }
       res.writeHead(200, { "Content-Type": "application/json" });
-      gameData.score += 1;
       res.write(JSON.stringify(gameData));
       res.end();
     } else {

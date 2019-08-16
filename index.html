@@ -8,17 +8,23 @@
   </head>
 
   <body>
-    <button onclick="postMessage()">Trykk på knappan miiine</button>
+    <button onclick="postMessage('UP')">UP</button>
+    <button onclick="postMessage('DOWN')">DOWN</button>
   </body>
 
   <script>
-    async function postMessage() {
+    async function postMessage(direction) {
       const API_ENDPOINT = "http://localhost:8080/api";
 
       const response = await fetch(API_ENDPOINT, {
-        method: "GET",
-        headers: {},
-        body: undefined
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: {
+          direction: direction
+        }
       });
 
       const json = await response.json();
