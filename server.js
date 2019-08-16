@@ -40,7 +40,7 @@ http
           .on("end", () => {
             body = Buffer.concat(body).toString();
 
-            console.log(JSON.parse(body));
+            console.log(body);
           });
       }
       res.writeHead(200, { "Content-Type": "application/json" });
