@@ -13,7 +13,8 @@ function getHTMLAsString(fileName, callBack) {
 }
 
 const gameData = {
-  score: 0
+  score: 0,
+  lastDirection: "FIRST"
 };
 
 //create a server object:
@@ -39,12 +40,15 @@ http
           })
           .on("end", () => {
             body = Buffer.concat(body).toString();
+            console.log(typeof body);
 
-            console.log(body);
+            gameData.lastDirection = JSON.parse(body).direction;
           });
       }
       res.writeHead(200, { "Content-Type": "application/json" });
       res.write(JSON.stringify(gameData));
+      console.log(gameData);
+
       res.end();
     } else {
       res.writeHead(404, { "Content-Type": "text/plain" });
