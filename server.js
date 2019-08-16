@@ -12,6 +12,10 @@ function getHTMLAsString(fileName, callBack) {
   });
 }
 
+const gameData = {
+  score: 0
+};
+
 //create a server object:
 http
   .createServer(function(req, res) {
@@ -27,7 +31,9 @@ http
         res.end(); //end the response
       });
     } else if (req.url === "/api") {
-      res.write("WTF bro, this endpoint is on the toilet");
+      res.writeHead(200, { "Content-Type": "application/json" });
+      gameData.score += 1;
+      res.write(JSON.stringify(gameData));
       res.end();
     } else {
       res.writeHead(404, { "Content-Type": "text/plain" });
