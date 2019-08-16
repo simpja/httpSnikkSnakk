@@ -1,11 +1,11 @@
-var http = require("http");
+var http = require('http');
 var PORT = 8080;
-var fs = require("fs");
+var fs = require('fs');
 
 function getHTMLAsString(fileName, callBack) {
-  fs.readFile(fileName, "utf8", function(err, data) {
+  fs.readFile(fileName, 'utf8', function(err, data) {
     if (err) {
-      callBack("Could not retrieve file");
+      callBack('Could not retrieve file');
     }
     callBack(data);
   });
@@ -14,9 +14,9 @@ function getHTMLAsString(fileName, callBack) {
 //create a server object:
 http
   .createServer(function(req, res) {
-    getHTMLAsString("./index.html", HTMLString => {
-      console.log(HTMLString);
-      res.writeHead(200, { "Content-Type": "text/html" });
+    console.log('hey! someone is contacting me!', new Date().getSeconds());
+    getHTMLAsString('./index.html', HTMLString => {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write(HTMLString); //write a response to the client
       res.end(); //end the response
     });
